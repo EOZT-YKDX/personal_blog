@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="夜の星 - 个人主页 / 作品合集">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" content="#0a0a0b"> <!-- 浏览器界面颜色，与画布同色 -->
+
+        <meta property="og:type" content="website"> <!-- Open Graph：页面类型 -->
+        <meta property="og:site_name" content="夜の星"> <!-- Open Graph：站点名 -->
+        <meta property="og:locale" content="zh_CN"> <!-- Open Graph：语言地区 -->
+        <meta property="og:url" content="https://ykdx.us.ci/"> <!-- Open Graph：页面地址 -->
+        <meta property="og:title" content="夜の星 - 个人主页 / 作品合集"> <!-- Open Graph：分享标题 -->
+        <meta property="og:description" content="夜の星 - 个人主页 / 作品合集"> <!-- Open Graph：分享描述 -->
+        <meta property="og:image" content="https://ykdx.us.ci/static/img/avatar/avatar.png"> <!-- Open Graph：分享配图 -->
+        <meta property="og:image:width" content="2136"> <!-- Open Graph：配图宽度 -->
+        <meta property="og:image:height" content="2136"> <!-- Open Graph：配图高度 -->
+        <meta property="og:image:alt" content="夜の星 头像"> <!-- Open Graph：配图说明 -->
+
+        <link rel="stylesheet" href="./static/css/common/loader.css"> <!-- 页面加载器样式 -->
+        <link rel="stylesheet" href="./static/css/common/init.css"> <!-- 初始化样式与设计 Token -->
+        <link rel="stylesheet" href="./static/css/common/nav.css"> <!-- 导航栏样式 -->
+
+        <link rel="stylesheet" href="./static/css/common/base.css"> <!-- 全站基础样式：作品网格与页脚 -->
+        <link rel="stylesheet" href="./static/css/index/home.css"> <!-- 首页专属样式 -->
+
+        <link rel="icon" href="./static/img/avatar/avatar.png" type="image/png"> <!-- 网站图标 -->
+        <title>夜の星</title>
+    </head>
+    <body> 
+        <!-- 页面加载器 -->
+        <div class="page-loader" id="pageLoader">
+            <div class="page-loader-ring"></div>
+            <p class="page-loader-title">夜の星</p>
+            <p class="page-loader-tip">正在准备页面</p>
+        </div>
+        <script src="./static/js/common/loader.js"></script>
+
+        <!-- 导航栏 -->
+        <nav class="site-nav">
+            <div class="nav-left-content">
+                <div class="avatar-container">
+                    <img src="./static/img/avatar/avatar.webp" alt="夜の星"> <!-- 作者头像 -->
+                </div>
+
+                <p id="nav-title">期待下一站与你相遇</p>
+            </div>
+
+            <div class="nav-right-content">
+                <a href="index.html" aria-current="page">主页</a>
+                <a href="about.html">关于</a>
+                <a href="projects.html">作品</a>
+                <a href="album.html">相册</a>
+                <a href="contact.html">联系</a>
+                <a href="sponsor.html">赞助</a>
+            </div>
+        </nav>
+
+        <main id="top">
+            <!-- 首屏 -->
+            <section class="hero">
+                <div class="shell">
+                    <div class="hero-grid">
+                        <div class="hero-copy">
+                            <h1 class="hero-title" id="heroTitle">夜の星</h1>
+
+                            <p class="hero-sub" id="heroSub"></p>
+
+                            <div class="hero-actions">
+                                <button class="explore-button" type="button" id="exploreButton">
+                                    <svg class="explore-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path d="M10.368 19.102c.349 1.049 1.011 1.086 1.478.086l5.309-11.375c.467-1.002.034-1.434-.967-.967l-11.376 5.308c-1.001.467-.963 1.129.085 1.479l4.103 1.367 1.368 4.102z"></path>
+                                    </svg>
+
+                                    <span class="explore-text-container">
+                                        <span class="explore-text-default">探索</span>
+                                        <span class="explore-text-hover">探寻</span>
+                                    </span>
+                                </button>
+
+                                <div class="scroll-hint" id="scrollHint">
+                                    <span class="scroll-arrow">↓</span>
+                                    <span class="scroll-text">下滑探索</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 网站更新概览 -->
+                        <div class="updates-window" id="updates">
+                            <div class="updates-bar">
+                                <div class="traffic">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                                <span class="window-title">
+                                    <span class="status-dot"></span>
+                                    <span id="updatesTitle">site / updates</span>
+                                </span>
+                                <span class="window-meta" id="updatesMeta"></span>
+                            </div>
+
+                            <ul class="updates-list" id="updatesList"></ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 技术栈滚动展示 -->
+            <section class="stack-strip" aria-label="常用技术栈">
+                <div class="stack-track" id="stackTrack">
+                    <ul class="stack-list" id="stackList"></ul>
+
+                    <!-- 重复一份，保证滚动无缝衔接 -->
+                    <ul class="stack-list" id="stackListCopy" aria-hidden="true"></ul>
+                </div>
+            </section>
+
+            <!-- 最新作品：最多展示 3 个 -->
+            <section class="work">
+                <div class="shell">
+                    <p class="label work-label" id="workLabel">最新作品</p>
+
+                    <div class="work-grid" id="workGrid"></div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 页脚 -->
+        <footer class="site-footer">
+            <div class="shell footer-inner">
+                <div class="footer-brand">
+                    <p class="footer-mark" id="footerMark"></p>
+
+                    <p class="footer-note" id="footerNote"></p>
+                </div>
+
+                <div class="footer-links">
+                    <p class="label footer-links-label">Explore</p>
+
+                    <div class="footer-links-grid">
+                        <a class="footer-link" href="index.html" aria-current="page">主页</a>
+                        <a class="footer-link" href="about.html">关于</a>
+                        <a class="footer-link" href="projects.html">作品</a>
+                        <a class="footer-link" href="album.html">相册</a>
+                        <a class="footer-link" href="contact.html">联系</a>
+                        <a class="footer-link" href="sponsor.html">赞助</a>
+                    </div>
+                </div>
+
+                <div class="footer-social">
+                    <div class="footer-social-head">
+                        <p class="label footer-social-label">Local time</p>
+                        <p class="footer-time" id="footerTime"></p>
+                    </div>
+
+                    <div class="footer-social-icons">
+                        <a href="https://github.com/EOZT-YKDX" target="_blank" rel="noopener" aria-label="GitHub">
+                            <img src="./static/img/icons/github.svg" alt="GitHub">
+                        </a>
+
+                        <a href="contact.html#wechat" aria-label="微信">
+                            <img src="./static/img/icons/wechat.svg" alt="微信">
+                        </a>
+
+                        <a href="contact.html#qq" aria-label="QQ">
+                            <img src="./static/img/icons/qq.svg" alt="QQ">
+                        </a>
+
+                        <a href="contact.html#mail" aria-label="邮箱">
+                            <img src="./static/img/icons/mail.svg" alt="邮箱">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="shell footer-meta">
+                <p class="footer-copy" id="footerCopy"></p>
+
+                <p class="footer-version" id="footerVersion"></p>
+            </div>
+        </footer>
+
+        <script src="./static/js/common/nav.js"></script> <!-- 导航栏折叠 -->
+        <script src="./static/js/index/main.js"></script> <!-- 首页主体 -->
+    </body>
+</html>

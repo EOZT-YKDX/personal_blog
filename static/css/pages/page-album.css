@@ -1,0 +1,326 @@
+/* ========== 相册页：封面卡片，一行最多三个 ========== */
+.album-grid {
+    /* 布局：三列等宽，超出三个自动换到下一行 */
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+
+    /* 间距 */
+    gap: var(--space-24);
+}
+
+.album-card {
+    /* 定位：上移时压住相邻卡片，避免被后一行的卡片盖住 */
+    position: relative;
+
+    /* 布局 */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    /* 装饰：边框常驻但透明，悬停时只换颜色，避免尺寸抖动 */
+    border: var(--hairline) solid transparent;
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface);
+
+    /* 交互：整张卡片可点击，进入对应相册详情页 */
+    cursor: pointer;
+    outline: none;
+
+    /* 动画：位移与颜色同时过渡，悬停时整体上移 */
+    transition: transform var(--duration) var(--ease),
+                border-color var(--duration) var(--ease),
+                background-color var(--duration) var(--ease);
+}
+
+/* 键盘聚焦时给出与悬停一致的视觉反馈 */
+.album-card:focus-visible {
+    /* 装饰 */
+    border-color: var(--color-signal);
+}
+
+.album-card:hover {
+    /* 布局：卡片整体上移一点，其余样式保持原样 */
+    transform: translateY(-6px);
+
+    /* 层级：抬起时显示在其它卡片之上 */
+    z-index: 1;
+
+    /* 装饰 */
+    border-color: var(--color-hairline-strong);
+    background-color: var(--color-surface-lift);
+}
+
+/* 封面：固定比例，保证每一行的卡片高度一致 */
+.album-cover {
+    /* 布局 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* 大小 */
+    width: 100%;
+    aspect-ratio: 4 / 3;
+
+    /* 装饰 */
+    overflow: hidden;
+    background-color: var(--color-surface-lift);
+}
+
+.album-cover-image {
+    /* 大小 */
+    width: 100%;
+    height: 100%;
+
+    /* 填充方式 */
+    object-fit: cover;
+
+    /* 动画 */
+    transition: transform var(--duration-slow) var(--ease);
+}
+
+.album-card:hover .album-cover-image {
+    /* 动画 */
+    transform: scale(1.04);
+}
+
+/* 无封面时用图标占位，保持与有封面卡片同样的高度 */
+.album-cover-placeholder {
+    /* 大小 */
+    width: 28px;
+    height: 28px;
+
+    /* 装饰 */
+    opacity: var(--opacity-soft);
+}
+
+.album-info {
+    /* 布局 */
+    display: flex;
+    flex-direction: column;
+
+    /* 间距 */
+    gap: var(--space-8);
+
+    /* 边距 */
+    padding: var(--space-20);
+}
+
+.album-title {
+    /* 文本 */
+    font-size: clamp(18px, 1.5vw, 22px);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+
+    /* 装饰 */
+    color: var(--color-text);
+}
+
+.album-date {
+    /* 文本 */
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    font-weight: 400;
+    letter-spacing: var(--tracking-caption);
+    text-transform: uppercase;
+
+    /* 装饰 */
+    color: var(--color-text-dim);
+}
+
+.album-desc {
+    /* 文本 */
+    font-size: var(--text-row);
+    font-weight: 400;
+    line-height: 1.9;
+
+    /* 装饰 */
+    color: var(--color-text-muted);
+}
+
+/* ========== 相册详情页：返回入口 ========== */
+/* 只在带 id 参数的详情页出现，位于首屏标签上方，点击直接回到相册列表 */
+.album-back {
+    /* 布局 */
+    display: inline-flex;
+    align-items: center;
+
+    /* 间距 */
+    gap: var(--space-8);
+
+    /* 边距：预留按钮内边距，并用负外边距抵消，文字仍与下方标签对齐 */
+    margin-bottom: var(--space-24);
+    margin-left: calc(-1 * var(--space-16));
+    padding: var(--space-8) var(--space-16);
+
+    /* 装饰：边框常驻但透明，悬停时只换颜色，避免出现尺寸跳动 */
+    border: var(--hairline) solid transparent;
+    border-radius: var(--radius-pill);
+
+    /* 文本 */
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    font-weight: 400;
+    letter-spacing: var(--tracking-caption);
+
+    /* 装饰 */
+    color: var(--color-text-muted);
+    text-decoration: none;
+
+    /* 动画 */
+    transition: color var(--duration) var(--ease),
+                border-color var(--duration) var(--ease);
+}
+
+.album-back:hover {
+    /* 装饰 */
+    border-color: var(--color-hairline-strong);
+    color: var(--color-signal);
+}
+
+.album-back:focus-visible {
+    /* 装饰：键盘聚焦时与悬停保持一致的反馈 */
+    border-color: var(--color-signal);
+    color: var(--color-signal);
+}
+
+.album-back-arrow {
+    /* 装饰 */
+    color: var(--color-text-dim);
+
+    /* 动画 */
+    transition: transform var(--duration) var(--ease),
+                color var(--duration) var(--ease);
+}
+
+.album-back:hover .album-back-arrow {
+    /* 装饰 */
+    color: var(--color-signal);
+
+    /* 动画：箭头向左轻移，强化返回方向 */
+    transform: translateX(-3px);
+}
+
+/* ========== 相册详情页：日期 / 张数 + 照片网格 ========== */
+.album-detail {
+    /* 边距：标题与简介已在首屏展示，正文只承接日期与照片，顶部留白收紧 */
+    padding-top: var(--space-24);
+}
+
+.album-detail-meta {
+    /* 布局：日期与张数同一行，张数紧跟日期 */
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    /* 间距 */
+    gap: var(--space-12);
+}
+
+.album-detail-date {
+    /* 文本 */
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    font-weight: 400;
+    letter-spacing: var(--tracking-caption);
+    text-transform: uppercase;
+
+    /* 装饰 */
+    color: var(--color-text-dim);
+}
+
+.album-detail-count {
+    /* 边距 */
+    padding: var(--space-4) var(--space-8);
+
+    /* 文本 */
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    font-weight: 400;
+    letter-spacing: var(--tracking-caption);
+    white-space: nowrap;
+
+    /* 装饰 */
+    border-radius: var(--radius-pill);
+    background-color: var(--color-surface-lift);
+    color: var(--color-text-soft);
+}
+
+/* 照片网格：一行最多三张，每张尺寸完全一致 */
+.album-photo-grid {
+    /* 布局 */
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    /* 间距 */
+    gap: var(--space-16);
+}
+
+.album-photo {
+    /* 布局 */
+    overflow: hidden;
+
+    /* 装饰 */
+    border-radius: var(--radius-sm);
+    background-color: var(--color-surface-lift);
+}
+
+.album-photo-image {
+    /* 布局：所有照片统一比例，保证每张大小相同 */
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+
+    /* 填充方式 */
+    object-fit: cover;
+}
+
+/* 空相册提示：照片扫描完成但没有可用文件时出现 */
+.album-detail-tip {
+    /* 边距 */
+    margin-top: var(--space-16);
+
+    /* 文本 */
+    font-size: var(--text-caption);
+    letter-spacing: var(--tracking-caption);
+
+    /* 装饰 */
+    color: var(--color-text-dim);
+}
+
+/* ========== 响应式：相册页 ========== */
+@media screen and (max-width: 1024px) {
+    .album-grid {
+        /* 布局：中等屏幕改为两列 */
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .album-photo-grid {
+        /* 布局：中等屏幕照片改为两列 */
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .album-grid {
+        /* 布局：小屏改为单列，卡片依次往下排 */
+        grid-template-columns: minmax(0, 1fr);
+
+        /* 间距 */
+        gap: var(--space-16);
+    }
+
+    .album-info {
+        /* 边距 */
+        padding: var(--space-16);
+    }
+
+    .album-photo-grid {
+        /* 布局：小屏照片改为单列 */
+        grid-template-columns: minmax(0, 1fr);
+
+        /* 间距 */
+        gap: var(--space-12);
+    }
+}

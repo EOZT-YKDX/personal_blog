@@ -1,0 +1,521 @@
+/* ========== 导航栏 ========== */
+.site-nav {
+    /* 定位 */
+    top: 0;
+    left: 0;
+    position: fixed;
+
+    /* 层级 */
+    z-index: 100;
+
+    /* 布局 */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    /* 大小 */
+    width: 100%;
+    min-height: var(--nav-height);
+    padding: 0 var(--nav-padding);
+
+    /* 装饰：纯色面板 + 单条发丝分隔，无模糊无阴影 */
+    background-color: var(--color-canvas);
+    border-bottom: var(--hairline) solid var(--color-hairline);
+}
+
+/* ========== 左侧：头像 + 站点标题 ========== */
+.nav-left-content {
+    /* 布局 */
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+
+    /* 间距 */
+    gap: var(--space-12);
+}
+
+.avatar-container {
+    /* 布局 */
+    flex-shrink: 0;
+
+    /* 大小 */
+    width: var(--space-40);
+    height: var(--space-40);
+
+    /* 装饰 */
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.avatar-container img {
+    /* 布局 */
+    display: block;
+
+    /* 大小 */
+    width: 100%;
+    height: 100%;
+
+    /* 填充方式 */
+    object-fit: cover;
+}
+
+#nav-title {
+    /* 文本 */
+    font-size: var(--text-body);
+    font-weight: 400;
+    white-space: nowrap;
+
+    /* 装饰 */
+    color: var(--color-text);
+}
+
+/* ========== 右侧：站点入口 ========== */
+.nav-right-content {
+    /* 布局 */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    /* 大小 */
+    height: var(--space-40);
+    min-width: var(--nav-links-min-width);
+
+    /* 间距 */
+    gap: var(--space-24);
+}
+
+.nav-right-content a {
+    /* 定位 */
+    position: relative;
+
+    /* 文本 */
+    font-size: var(--text-body);
+    font-weight: 400;
+    white-space: nowrap;
+
+    /* 装饰 */
+    color: var(--color-text);
+    text-decoration: none;
+
+    /* 动画 */
+    transition: color var(--duration) var(--ease),
+                transform var(--duration) var(--ease);
+}
+
+.nav-right-content a:hover {
+    /* 装饰 */
+    color: var(--color-text-soft);
+
+    /* 动画 */
+    transform: translateY(calc(-1 * var(--hairline) * 2));
+}
+
+/* 悬浮下划线：由 0 展开到 100% */
+.nav-right-content a::after {
+    /* 内容 */
+    content: "";
+
+    /* 定位 */
+    left: 0;
+    bottom: calc(-1 * var(--space-6));
+    position: absolute;
+
+    /* 大小 */
+    width: 0;
+    height: var(--hairline);
+
+    /* 装饰 */
+    background-color: var(--color-text-muted);
+
+    /* 动画 */
+    transition: width var(--duration) var(--ease);
+}
+
+.nav-right-content a:hover::after {
+    /* 大小 */
+    width: 100%;
+}
+
+/* 当前页：下划线常驻，与悬浮态同一视觉语言 */
+.nav-right-content a[aria-current="page"]::after {
+    /* 大小 */
+    width: 100%;
+}
+
+/* ========== 移动端菜单按钮 ========== */
+.mobile-nav-menu {
+    /* 定位 */
+    right: var(--space-16);
+    position: fixed;
+
+    /* 布局 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    /* 层级 */
+    z-index: 100;
+
+    /* 间距 */
+    gap: var(--space-6);
+
+    /* 大小 */
+    width: var(--space-40);
+    height: var(--space-40);
+    padding: 0;
+
+    /* 装饰 */
+    border: var(--hairline) solid var(--color-hairline-strong);
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface);
+    cursor: pointer;
+
+    /* 动画 */
+    transition: border-color var(--duration) var(--ease);
+}
+
+.mobile-nav-menu:hover {
+    /* 装饰 */
+    border-color: var(--color-text-muted);
+}
+
+.nav-menu-btn-bar {
+    /* 大小 */
+    width: var(--space-16);
+    height: calc(var(--hairline) * 2);
+
+    /* 装饰 */
+    border-radius: var(--hairline);
+    background-color: var(--color-text-soft);
+}
+
+/* ========== 移动端遮罩层 ========== */
+/* 抽屉打开期间锁住背景滚动，与加载层 is-loading 使用同一套锁定方式 */
+html.is-nav-locked {
+    /* 抽屉打开期间禁止滚动 */
+    overflow: hidden;
+}
+
+.mobile-nav-overlay {
+    /* 定位 */
+    top: 0;
+    left: 0;
+    position: fixed;
+
+    /* 大小 */
+    width: 100%;
+    height: 100%;
+
+    /* 层级 */
+    z-index: 99;
+
+    /* 装饰 */
+    opacity: 0;
+    visibility: hidden;
+    background-color: var(--color-scrim);
+
+    /* 动画 */
+    transition: opacity var(--duration-drawer) var(--ease),
+                visibility var(--duration-drawer) var(--ease);
+}
+
+.mobile-nav-overlay.active {
+    /* 装饰 */
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ========== 移动端抽屉 ========== */
+.mobile-nav-drawer {
+    /* 定位 */
+    top: 0;
+    right: 0;
+    position: fixed;
+
+    /* 大小 */
+    width: var(--drawer-width);
+    min-width: var(--drawer-min-width);
+    height: 100%;
+
+    /* 层级 */
+    z-index: 101;
+
+    /* 布局 */
+    display: flex;
+    flex-direction: column;
+
+    /* 间距 */
+    gap: var(--space-12);
+    padding: var(--space-20);
+
+    /* 装饰 */
+    transform: translateX(100%);
+    overflow-y: auto;
+    border-radius: var(--radius-md) 0 0 var(--radius-md);
+    background-color: var(--color-surface);
+
+    /* 动画 */
+    transition: transform var(--duration-drawer) var(--ease);
+}
+
+.mobile-nav-drawer.active {
+    /* 装饰 */
+    transform: translateX(0);
+}
+
+/* 条目容器：与前端工具的侧边栏列表一致，组内保持紧凑 */
+.mobile-nav-list {
+    /* 布局：抽屉是 flex column，这里不让列表被压缩 */
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+
+    /* 间距 */
+    gap: var(--space-4);
+}
+
+/* 抽屉条目：沿用前端工具 sidebar-menu-link 的视觉语言，
+   左侧留一条透明发丝线，悬停与选中时点亮；
+   纵向内边距与字号都比工具页放大一档，条目更高、文字更清楚 */
+.mobile-nav-drawer a {
+    /* 边距：纵向由 8px 提到 12px，条目高度约 52px */
+    padding: var(--space-12) var(--space-16);
+
+    /* 文本：由 13px 提到 17px，与导语同一档 */
+    font-size: var(--text-lead);
+    font-weight: 400;
+
+    /* 装饰 */
+    border-left: var(--hairline) solid transparent;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-soft);
+    text-decoration: none;
+
+    /* 动画 */
+    transition: color var(--duration) var(--ease),
+                border-color var(--duration) var(--ease),
+                background-color var(--duration) var(--ease),
+                transform var(--duration) var(--ease);
+}
+
+/* 悬停：左侧发丝线转为信号色，文本提亮 */
+.mobile-nav-drawer a:hover {
+    /* 装饰 */
+    border-left-color: var(--color-signal);
+    background-color: var(--color-surface-lift);
+    color: var(--color-text);
+
+    /* 动画 */
+    transform: translateX(calc(var(--hairline) * 4));
+}
+
+/* 抽屉里的当前页：与悬停同一套语言，底色常驻，信号色发丝线保留 */
+.mobile-nav-drawer a[aria-current="page"] {
+    /* 装饰 */
+    border-left-color: var(--color-signal);
+    background-color: var(--color-surface-lift);
+    color: var(--color-signal);
+}
+
+.mobile-nav-header {
+    /* 布局 */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    /* 边距 */
+    padding-bottom: var(--space-16);
+    margin-bottom: var(--space-4);
+
+    /* 装饰 */
+    border-bottom: var(--hairline) solid var(--color-hairline);
+}
+
+.mobile-nav-title {
+    /* 文本 */
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    font-weight: 400;
+    letter-spacing: var(--tracking-caption);
+    text-transform: uppercase;
+
+    /* 装饰 */
+    color: var(--color-text-muted);
+}
+
+.mobile-nav-close {
+    /* 布局 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* 大小 */
+    width: var(--space-32);
+    height: var(--space-32);
+
+    /* 装饰 */
+    border: var(--hairline) solid var(--color-hairline-strong);
+    border-radius: var(--radius-sm);
+    background-color: transparent;
+    color: var(--color-text-soft);
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    cursor: pointer;
+
+    /* 动画 */
+    transition: border-color var(--duration) var(--ease),
+                color var(--duration) var(--ease);
+}
+
+.mobile-nav-close:hover {
+    /* 装饰 */
+    border-color: var(--color-text-muted);
+    color: var(--color-text);
+}
+
+/* ========== 当前页提示弹窗 ========== */
+/* 极简窗口：圆点标题条 + 终端提示行，与首屏更新窗口同一套视觉语言 */
+.nav-toast {
+    /* 定位：紧贴导航栏下沿，右端贴住页面边缘 */
+    top: var(--nav-height);
+    right: 0;
+    position: fixed;
+
+    /* 层级：高于导航、遮罩与抽屉 */
+    z-index: 120;
+
+    /* 大小：跟随内容，同时限制最大宽度避免长文案撑出屏幕 */
+    max-width: min(320px, calc(100vw - var(--space-40)));
+
+    /* 装饰：圆角面板 + 发丝描边，无模糊无阴影 */
+    overflow: hidden;
+    border: var(--hairline) solid var(--color-hairline-strong);
+    border-top: none;
+    border-right: none;
+    border-radius: 0 0 0 var(--radius-md);
+    background-color: var(--color-surface);
+
+    /* 交互：仅作提示，不遮挡下方内容的点击 */
+    pointer-events: none;
+
+    /* 动画：默认停在屏幕右侧外，active 时滑入 */
+    transform: translateX(100%);
+    opacity: var(--opacity-hidden);
+    transition: transform var(--duration-drawer) var(--ease),
+                opacity var(--duration-drawer) var(--ease);
+}
+
+.nav-toast.active {
+    /* 动画 */
+    transform: translateX(0);
+    opacity: var(--opacity-full);
+}
+
+/* 标题条：与首屏窗口一致的发丝分隔与内边距 */
+.nav-toast-bar {
+    /* 布局 */
+    display: flex;
+    align-items: center;
+
+    /* 间距 */
+    gap: var(--space-12);
+
+    /* 边距 */
+    padding: var(--space-12) var(--space-20);
+
+    /* 装饰 */
+    border-bottom: var(--hairline) solid var(--color-hairline);
+}
+
+/* 窗口圆点：仅用明度区分，不使用彩色 */
+.nav-toast-dots {
+    /* 布局 */
+    display: flex;
+    flex: none;
+
+    /* 间距 */
+    gap: var(--space-8);
+}
+
+.nav-toast-dots span {
+    /* 大小 */
+    width: var(--space-6);
+    height: var(--space-6);
+
+    /* 装饰 */
+    border-radius: 50%;
+    background-color: var(--color-hairline-strong);
+}
+
+.nav-toast-dots span:nth-child(2) {
+    /* 装饰 */
+    background-color: var(--color-text-dim);
+}
+
+.nav-toast-dots span:nth-child(3) {
+    /* 装饰 */
+    background-color: var(--color-text-muted);
+}
+
+/* 窗口标题：等宽小字，与首屏窗口标题同一档字号 */
+.nav-toast-label {
+    /* 文本 */
+    font-family: var(--font-mono);
+    font-size: var(--text-window);
+    font-weight: 400;
+    letter-spacing: var(--tracking-caption);
+    text-transform: uppercase;
+
+    /* 装饰 */
+    color: var(--color-text-muted);
+}
+
+/* 正文：终端提示行 */
+.nav-toast-body {
+    /* 布局 */
+    display: flex;
+    align-items: baseline;
+
+    /* 间距 */
+    gap: var(--space-8);
+
+    /* 边距 */
+    padding: var(--space-12) var(--space-20);
+}
+
+/* 提示符：信号色点缀，与「了解详情」悬停色一致 */
+.nav-toast-prompt {
+    /* 文本 */
+    font-family: var(--font-mono);
+    font-size: var(--text-row);
+
+    /* 装饰 */
+    color: var(--color-signal);
+}
+
+.nav-toast-text {
+    /* 文本 */
+    font-size: var(--text-row);
+    line-height: 1.6;
+
+    /* 装饰 */
+    color: var(--color-text);
+}
+
+/* ========== 移动端适配 ========== */
+@media screen and (max-width: 768px) {
+    .mobile-nav-overlay {
+        /* 装饰 */
+        background-color: var(--color-scrim-light);
+    }
+
+    #nav-title {
+        /* 大小 */
+        max-width: var(--nav-title-max-width);
+
+        /* 文本 */
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}

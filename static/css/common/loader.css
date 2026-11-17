@@ -1,0 +1,99 @@
+/* ========== 页面初始化加载层 ========== */
+html.is-loading {
+    /* 加载期间禁止滚动 */
+    overflow: hidden;
+}
+
+.page-loader {
+    /* 定位 */
+    top: 0;
+    left: 0;
+    position: fixed;
+
+    /* 大小 */
+    width: 100%;
+    height: 100%;
+
+    /* 层级 */
+    z-index: 9999;
+
+    /* 布局 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-20);
+
+    /* 装饰：纯深色覆盖，不使用模糊与光晕 */
+    background-color: var(--color-canvas);
+
+    /* 动画 */
+    opacity: 1;
+    visibility: visible;
+    transition: opacity var(--duration-slow) var(--ease),
+                visibility var(--duration-slow) var(--ease);
+}
+
+.page-loader.hide {
+    /* 装饰 */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* 加载指示：发丝环旋转（唯一的持续旋转动效） */
+.page-loader-ring {
+    /* 大小 */
+    width: var(--space-40);
+    height: var(--space-40);
+
+    /* 装饰 */
+    border-radius: 50%;
+    border: calc(var(--hairline) * 2) solid var(--color-hairline);
+    border-top-color: var(--color-text);
+
+    /* 动画 */
+    animation: pageLoaderSpin var(--duration-spin) linear infinite;
+}
+
+.page-loader-title {
+    /* 文本 */
+    font-size: var(--text-body);
+    font-weight: 400;
+    letter-spacing: var(--tracking-loader);
+
+    /* 装饰 */
+    color: var(--color-text);
+}
+
+.page-loader-tip {
+    /* 文本 */
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    font-weight: 400;
+    letter-spacing: var(--tracking-caption);
+
+    /* 装饰 */
+    color: var(--color-text-dim);
+
+    /* 动画 */
+    animation: pageLoaderPulse var(--duration-pulse) var(--ease-pulse) infinite;
+}
+
+@keyframes pageLoaderSpin {
+    to {
+        /* 动画 */
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pageLoaderPulse {
+    0%, 100% {
+        /* 动画 */
+        opacity: var(--opacity-soft);
+    }
+    50% {
+        /* 动画 */
+        opacity: var(--opacity-visible);
+    }
+}

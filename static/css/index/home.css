@@ -1,0 +1,611 @@
+/* ========== 首屏 ========== */
+.hero {
+    /* 布局 */
+    display: flex;
+    align-items: center;
+
+    /* 大小：占满一屏，首屏内容整体放大，其余内容需下拉才出现 */
+    min-height: 100vh;
+    min-height: 100svh;
+
+    /* 边距：仅顶部避让固定导航，剩余空间用于垂直居中 */
+    padding: var(--nav-height) 0 0;
+}
+
+.hero-grid {
+    /* 布局：左文右窗，文案列固定较窄贴左，窗口列吃掉剩余空间并贴右 */
+    display: grid;
+    grid-template-columns: minmax(0, var(--hero-copy-width)) minmax(0, 1fr);
+    align-items: center;
+
+    /* 间距：两栏之间留出明显的呼吸区，文字与卡片不再挤在一起 */
+    gap: var(--hero-gap);
+
+    /* 大小 */
+    width: 100%;
+}
+
+.hero-copy {
+    /* 布局 */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.hero-title {
+    /* 文本：全屏首屏的主视觉，字号随视口一起放大 */
+    font-size: var(--text-hero);
+    font-weight: 400;
+    letter-spacing: var(--tracking-title);
+    line-height: var(--leading-title);
+
+    /* 装饰 */
+    color: var(--color-text);
+}
+
+.hero-sub {
+    /* 边距 */
+    margin-top: var(--space-40);
+
+    /* 文本：行高与字号同步放大，读起来更舒展 */
+    font-size: var(--text-lead);
+    font-weight: 400;
+    line-height: var(--leading-lead);
+
+    /* 装饰 */
+    color: var(--color-text-muted);
+}
+
+.hero-actions {
+    /* 布局 */
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    /* 边距 */
+    margin-top: var(--space-40);
+}
+
+/* ========== 探索按钮（全站唯一亮面） ========== */
+.explore-button {
+    /* 布局 */
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+
+    /* 大小：固定尺寸，窗口缩小也不会被压扁 */
+    height: var(--explore-height);
+    min-width: var(--explore-min-width);
+
+    /* 间距 */
+    gap: var(--space-8);
+    padding: 0 var(--space-20);
+
+    /* 装饰 */
+    border: 0;
+    border-radius: var(--radius-pill);
+    background-color: var(--color-signal);
+    cursor: pointer;
+
+    /* 动画 */
+    transition: background-color var(--duration) var(--ease),
+                transform var(--duration) var(--ease);
+}
+
+.explore-button:hover {
+    /* 装饰 */
+    background-color: var(--color-signal-deep);
+
+    /* 动画 */
+    transform: translateY(calc(-1 * var(--hairline) * 2));
+}
+
+.explore-icon {
+    /* 布局 */
+    flex: none;
+
+    /* 大小 */
+    width: var(--explore-icon);
+    height: var(--explore-icon);
+
+    /* 装饰 */
+    fill: var(--color-canvas);
+
+    /* 动画 */
+    transition: transform var(--duration) var(--ease);
+}
+
+.explore-button:hover .explore-icon {
+    /* 动画 */
+    transform: rotate(-12deg);
+}
+
+/* 文字上下切换容器：双行文字共用同一可视窗口 */
+.explore-text-container {
+    /* 定位 */
+    position: relative;
+
+    /* 布局 */
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+
+    /* 大小：固定高度，任何窗口宽度下都不会被压扁 */
+    height: var(--explore-height);
+    overflow: hidden;
+
+    /* 文本 */
+    font-size: var(--text-body);
+    font-weight: 400;
+    white-space: nowrap;
+}
+
+.explore-text-default,
+.explore-text-hover {
+    /* 布局 */
+    display: block;
+
+    /* 文本 */
+    line-height: var(--explore-height);
+
+    /* 装饰 */
+    color: var(--color-canvas);
+
+    /* 动画 */
+    transition: transform var(--duration) var(--ease),
+                opacity var(--duration) var(--ease);
+}
+
+.explore-text-hover {
+    /* 定位 */
+    top: 0;
+    left: 0;
+    position: absolute;
+
+    /* 装饰 */
+    opacity: var(--opacity-hidden);
+    transform: translateY(100%);
+}
+
+.explore-button:hover .explore-text-default {
+    /* 动画 */
+    opacity: var(--opacity-hidden);
+    transform: translateY(-100%);
+}
+
+.explore-button:hover .explore-text-hover {
+    /* 动画 */
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ========== 下滑提示：点击探索后出现 ========== */
+.scroll-hint {
+    /* 布局 */
+    display: flex;
+    align-items: center;
+
+    /* 间距 */
+    gap: var(--space-8);
+    margin-left: var(--space-16);
+
+    /* 装饰 */
+    opacity: var(--opacity-hidden);
+    pointer-events: none;
+    transform: translateX(calc(-1 * var(--space-12)));
+
+    /* 动画 */
+    transition: opacity var(--duration) var(--ease),
+                transform var(--duration) var(--ease);
+}
+
+.scroll-hint.show {
+    /* 装饰 */
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.scroll-arrow {
+    /* 文本 */
+    font-size: var(--text-body);
+    font-weight: 400;
+    line-height: 1;
+
+    /* 装饰 */
+    color: var(--color-text-muted);
+
+    /* 动画 */
+    animation: hintBounce var(--duration-hint) var(--ease) infinite;
+}
+
+.scroll-text {
+    /* 文本 */
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    font-weight: 400;
+    letter-spacing: var(--tracking-caption);
+    white-space: nowrap;
+
+    /* 装饰 */
+    color: var(--color-text-muted);
+}
+
+@keyframes hintBounce {
+    0%, 20%, 50%, 80%, 100% {
+        /* 动画 */
+        transform: translateY(0);
+    }
+    40% {
+        /* 动画 */
+        transform: translateY(calc(-1 * var(--space-6)));
+    }
+    60% {
+        /* 动画 */
+        transform: translateY(calc(-1 * var(--space-4)));
+    }
+}
+
+/* ========== 网站更新概览窗口 ========== */
+.updates-window {
+    /* 布局：窗口占满右栏，贴住容器右边缘 */
+    justify-self: stretch;
+
+    /* 大小 */
+    width: 100%;
+
+    /* 装饰 */
+    overflow: hidden;
+    border: var(--hairline) solid var(--color-hairline);
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface);
+
+    /* 动画：一次性入场 */
+    animation: windowIn var(--duration-slow) var(--ease) both;
+}
+
+.updates-bar {
+    /* 布局 */
+    display: flex;
+    align-items: center;
+
+    /* 间距 */
+    gap: var(--space-16);
+
+    /* 边距：随首屏放大同步加宽 */
+    padding: var(--space-20) var(--space-24);
+
+    /* 装饰 */
+    border-bottom: var(--hairline) solid var(--color-hairline);
+}
+
+/* 窗口圆点：仅用明度区分，不使用彩色 */
+.traffic {
+    /* 布局 */
+    display: flex;
+    flex: none;
+
+    /* 间距 */
+    gap: var(--space-8);
+}
+
+.traffic span {
+    /* 大小 */
+    width: var(--space-8);
+    height: var(--space-8);
+
+    /* 装饰 */
+    border-radius: 50%;
+    background-color: var(--color-hairline-strong);
+}
+
+.traffic span:nth-child(2) {
+    /* 装饰 */
+    background-color: var(--color-text-dim);
+}
+
+.traffic span:nth-child(3) {
+    /* 装饰 */
+    background-color: var(--color-text-muted);
+}
+
+.window-title {
+    /* 布局 */
+    display: inline-flex;
+    align-items: center;
+
+    /* 间距 */
+    gap: var(--space-8);
+
+    /* 文本：随首屏整体放大一档 */
+    font-family: var(--font-mono);
+    font-size: var(--text-window);
+    font-weight: 400;
+    letter-spacing: var(--tracking-caption);
+    text-transform: uppercase;
+
+    /* 装饰 */
+    color: var(--color-text);
+}
+
+.status-dot {
+    /* 大小 */
+    width: var(--space-6);
+    height: var(--space-6);
+
+    /* 装饰 */
+    border-radius: 50%;
+    background-color: var(--color-status);
+}
+
+.window-meta {
+    /* 布局 */
+    margin-left: auto;
+
+    /* 文本 */
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    font-weight: 400;
+    letter-spacing: var(--tracking-caption);
+    text-transform: uppercase;
+
+    /* 装饰 */
+    color: var(--color-text-dim);
+}
+
+/* ========== 更新列表：仅发丝分隔 ========== */
+.updates-list {
+    /* 布局 */
+    display: flex;
+    flex-direction: column;
+
+    /* 间距 */
+    gap: var(--hairline);
+
+    /* 装饰 */
+    background-color: var(--color-hairline);
+    list-style: none;
+}
+
+.update-row {
+    /* 布局：日期列固定宽度，各行文字起点统一，不受日期长短影响 */
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
+    align-items: baseline;
+
+    /* 间距 */
+    gap: var(--space-24);
+
+    /* 边距：行高加大，与放大的首屏匹配 */
+    padding: var(--space-24) var(--space-24);
+
+    /* 装饰 */
+    background-color: var(--color-surface);
+
+    /* 动画 */
+    transition: background-color var(--duration) var(--ease);
+}
+
+.update-row:hover {
+    /* 装饰 */
+    background-color: var(--color-surface-lift);
+}
+
+.update-date {
+    /* 文本：与放大的首屏窗口匹配 */
+    font-family: var(--font-mono);
+    font-size: var(--text-body);
+    font-weight: 400;
+    letter-spacing: var(--tracking-caption);
+    text-transform: uppercase;
+
+    /* 装饰 */
+    color: var(--color-text-dim);
+}
+
+.update-text {
+    /* 文本 */
+    font-size: var(--text-body);
+    font-weight: 400;
+
+    /* 装饰 */
+    color: var(--color-text-muted);
+
+    /* 动画 */
+    transition: color var(--duration) var(--ease);
+}
+
+.update-row:hover .update-text {
+    /* 装饰 */
+    color: var(--color-text-soft);
+}
+
+/* ========== 技术栈滚动展示 ========== */
+.stack-strip {
+    /* 装饰：仅用上下两条发丝分隔，不使用底色 */
+    overflow: hidden;
+    border-top: var(--hairline) solid var(--color-hairline);
+    border-bottom: var(--hairline) solid var(--color-hairline);
+}
+
+.stack-track {
+    /* 布局 */
+    display: flex;
+
+    /* 大小：内容有多宽就铺多宽，便于整体位移 */
+    width: max-content;
+
+    /* 动画：匀速循环，鼠标悬停时暂停阅读 */
+    animation: stackScroll 28s linear infinite;
+}
+
+.stack-strip:hover .stack-track {
+    /* 动画 */
+    animation-play-state: paused;
+}
+
+.stack-list {
+    /* 布局 */
+    display: flex;
+    align-items: center;
+
+    /* 间距：列表内与列表之间保持同样的间距，首尾相接处不断层 */
+    gap: var(--space-56);
+    padding: var(--space-20) var(--space-56) var(--space-20) 0;
+
+    /* 文本 */
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    font-weight: 400;
+    letter-spacing: var(--tracking-caption);
+    text-transform: uppercase;
+    white-space: nowrap;
+
+    /* 装饰 */
+    color: var(--color-text-dim);
+    list-style: none;
+
+    /* 动画 */
+    transition: color var(--duration) var(--ease);
+}
+
+.stack-strip:hover .stack-list {
+    /* 装饰 */
+    color: var(--color-text-muted);
+}
+
+/* ========== 最新作品 ========== */
+.work {
+    /* 边距：与首屏共用同一份纵向留白 */
+    padding: var(--hero-padding-y) 0 0;
+}
+
+.work-label {
+    /* 装饰 */
+    color: var(--color-text-muted);
+}
+
+/* ========== 具名动效 ========== */
+@keyframes stackScroll {
+    from {
+        /* 动画 */
+        transform: translateX(0);
+    }
+    to {
+        /* 动画：位移一份列表的宽度，实现无缝衔接 */
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes windowIn {
+    from {
+        /* 动画 */
+        opacity: var(--opacity-hidden);
+        transform: translateY(var(--space-8));
+    }
+    to {
+        /* 动画 */
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========== 响应式 ========== */
+@media screen and (max-width: 1024px) {
+    .hero-grid {
+        /* 布局：窄屏改为上下堆叠，首屏仍占满一屏 */
+        grid-template-columns: 1fr;
+        align-items: start;
+
+        /* 间距 */
+        gap: var(--space-40);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .hero {
+        /* 边距：首屏保持满屏，仅收紧纵向留白 */
+        padding: calc(var(--nav-height) + var(--space-56)) 0 var(--space-56);
+    }
+
+    .hero-sub {
+        /* 文本 */
+        font-size: var(--text-body);
+    }
+
+    /* 小屏：提示与按钮保持同一行，显示在按钮右侧 */
+    .hero-actions {
+        /* 布局：禁止换行，提示始终贴在按钮右侧 */
+        flex-wrap: nowrap;
+        align-items: center;
+    }
+
+    .scroll-hint {
+        /* 布局：不再独占一行，跟随按钮右侧且不被压缩 */
+        flex: none;
+        width: auto;
+    }
+
+    .update-row {
+        /* 布局：小屏改为单列，日期与文字上下排列 */
+        grid-template-columns: minmax(0, 1fr);
+
+        /* 间距 */
+        gap: var(--space-6);
+
+        /* 边距：小屏收紧，避免窗口过高 */
+        padding: var(--space-16) var(--space-20);
+    }
+
+    /* 小屏：标题与日期必须同行，禁止各自折行 */
+    .window-title,
+    .window-meta {
+        /* 文本 */
+        white-space: nowrap;
+    }
+
+    .window-title {
+        /* 文本：小屏收窄字号与字距，为同行右侧的日期留出空间 */
+        font-size: var(--text-caption);
+        letter-spacing: 0.06em;
+
+        /* 布局 */
+        flex: none;
+    }
+
+    .window-meta {
+        /* 文本：同步收紧字距，保证与标题排在同一行 */
+        letter-spacing: 0.06em;
+
+        /* 布局：保持自身宽度，不被压缩成两行 */
+        flex: none;
+    }
+
+    /* 小屏：收窄栏内间隔与左右边距，让标题与日期排在同一行 */
+    .updates-bar {
+        /* 间距 */
+        gap: var(--space-8);
+
+        /* 边距 */
+        padding: var(--space-16);
+    }
+
+    .stack-list {
+        /* 间距 */
+        gap: var(--space-32);
+        padding: var(--space-16) var(--space-32) var(--space-16) 0;
+    }
+}
+
+/* 尊重系统减弱动效偏好 */
+@media (prefers-reduced-motion: reduce) {
+    .updates-window {
+        /* 动画 */
+        animation: none;
+    }
+
+    .stack-track {
+        /* 动画：静止展示，避免持续位移 */
+        animation: none;
+    }
+}

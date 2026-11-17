@@ -1,0 +1,184 @@
+/* ========== 关于页：简介内的能力清单 ========== */
+/* 标题 + 圆点条目，跟在段落之后出现 */
+.block-list {
+    /* 布局 */
+    display: flex;
+    flex-direction: column;
+
+    /* 间距 */
+    gap: var(--space-12);
+}
+
+.block-list-title {
+    /* 文本 */
+    font-size: var(--text-body);
+    font-weight: 400;
+
+    /* 装饰 */
+    color: var(--color-text);
+}
+
+.block-list-items {
+    /* 布局 */
+    display: flex;
+    flex-direction: column;
+
+    /* 间距 */
+    gap: var(--space-8);
+
+    /* 边距：为圆点留出缩进 */
+    padding-left: var(--space-20);
+
+    /* 装饰 */
+    list-style: disc;
+}
+
+.block-list-item {
+    /* 文本 */
+    font-size: var(--text-body);
+    font-weight: 400;
+    line-height: 1.9;
+
+    /* 装饰 */
+    color: var(--color-text-muted);
+}
+
+/* ========== 关于页：技术栈分组 ========== */
+.stack-groups {
+    /* 布局 */
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    /* 间距 */
+    gap: var(--space-32);
+}
+
+.stack-group {
+    /* 布局 */
+    display: flex;
+    flex-direction: column;
+
+    /* 间距 */
+    gap: var(--space-16);
+}
+
+.stack-group-name {
+    /* 文本 */
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    font-weight: 400;
+    letter-spacing: var(--tracking-caption);
+    text-transform: uppercase;
+
+    /* 装饰 */
+    color: var(--color-text-dim);
+}
+
+/* ========== 关于页：时间线，与更新列表同一种发丝分隔行 ========== */
+.timeline {
+    /* 布局 */
+    display: flex;
+    flex-direction: column;
+
+    /* 间距 */
+    gap: var(--hairline);
+
+    /* 装饰 */
+    background-color: var(--color-hairline);
+}
+
+.timeline-row {
+    /* 布局 */
+    display: grid;
+    grid-template-columns: minmax(0, 88px) minmax(0, 1fr);
+    align-items: start;
+
+    /* 间距 */
+    gap: var(--space-24);
+
+    /* 边距 */
+    padding: var(--space-24);
+
+    /* 装饰 */
+    background-color: var(--color-surface);
+
+    /* 动画 */
+    transition: background-color var(--duration) var(--ease);
+}
+
+.timeline-row:hover {
+    /* 装饰 */
+    background-color: var(--color-surface-lift);
+}
+
+.timeline-date {
+    /* 文本 */
+    font-family: var(--font-mono);
+    font-size: var(--text-body);
+    font-weight: 400;
+    letter-spacing: var(--tracking-caption);
+    text-transform: uppercase;
+
+    /* 装饰 */
+    color: var(--color-text-dim);
+}
+
+.timeline-main {
+    /* 布局 */
+    display: flex;
+    flex-direction: column;
+
+    /* 间距 */
+    gap: var(--space-8);
+
+    /* 大小 */
+    min-width: 0;
+}
+
+.timeline-title {
+    /* 文本 */
+    font-size: var(--text-body);
+    font-weight: 400;
+
+    /* 装饰 */
+    color: var(--color-text);
+}
+
+.timeline-desc {
+    /* 文本 */
+    font-size: var(--text-row);
+    font-weight: 400;
+    line-height: 1.9;
+
+    /* 装饰 */
+    color: var(--color-text-muted);
+}
+
+/* ========== 响应式：关于页 ========== */
+@media screen and (max-width: 1024px) {
+    .stack-groups {
+        /* 布局 */
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .stack-groups {
+        /* 布局 */
+        grid-template-columns: 1fr;
+
+        /* 间距 */
+        gap: var(--space-24);
+    }
+
+    .timeline-row {
+        /* 布局 */
+        grid-template-columns: minmax(0, 1fr);
+
+        /* 间距 */
+        gap: var(--space-8);
+
+        /* 边距 */
+        padding: var(--space-16) var(--space-20);
+    }
+}

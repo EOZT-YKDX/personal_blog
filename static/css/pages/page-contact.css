@@ -1,0 +1,155 @@
+/* ========== 联系页：联系方式列表 ========== */
+.contact-list {
+    /* 布局 */
+    display: flex;
+    flex-direction: column;
+
+    /* 间距 */
+    gap: var(--hairline);
+
+    /* 装饰 */
+    background-color: var(--color-hairline);
+    list-style: none;
+}
+
+.contact-row {
+    /* 定位：带 hash 进入时兜底避让固定导航，JS 定位失败也不会被导航遮住 */
+    scroll-margin-top: calc(var(--nav-height) + var(--space-24));
+
+    /* 布局 */
+    display: grid;
+    grid-template-columns: minmax(0, 120px) minmax(0, 1fr) auto;
+    align-items: center;
+
+    /* 间距 */
+    gap: var(--space-24);
+
+    /* 边距 */
+    padding: var(--space-24);
+
+    /* 装饰 */
+    background-color: var(--color-surface);
+
+    /* 动画 */
+    transition: background-color var(--duration) var(--ease);
+}
+
+.contact-row:hover {
+    /* 装饰 */
+    background-color: var(--color-surface-lift);
+}
+
+.contact-label {
+    /* 装饰 */
+    color: var(--color-text-dim);
+}
+
+/* 行首图标：与标签文字同色，仅作识别用 */
+.contact-icon {
+    /* 大小 */
+    width: 14px;
+    height: 14px;
+
+    /* 填充方式 */
+    object-fit: contain;
+
+    /* 装饰 */
+    opacity: var(--opacity-soft);
+}
+
+.contact-main {
+    /* 布局 */
+    display: flex;
+    flex-direction: column;
+
+    /* 间距 */
+    gap: var(--space-8);
+
+    /* 大小 */
+    min-width: 0;
+}
+
+.contact-value {
+    /* 文本 */
+    font-size: var(--text-body);
+    font-weight: 400;
+    overflow-wrap: anywhere;
+
+    /* 装饰：仅作展示，不可点击跳转 */
+    color: var(--color-text);
+}
+
+.contact-note {
+    /* 文本 */
+    font-size: var(--text-row);
+    font-weight: 400;
+    line-height: 1.9;
+
+    /* 装饰 */
+    color: var(--color-text-dim);
+}
+
+.contact-action {
+    /* 布局 */
+    flex: none;
+
+    /* 边距 */
+    padding: var(--space-8) var(--space-16);
+
+    /* 文本 */
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    font-weight: 400;
+    letter-spacing: var(--tracking-caption);
+    text-transform: uppercase;
+
+    /* 装饰：边框常驻但透明，悬停时只换颜色，避免尺寸跳动 */
+    border: var(--hairline) solid var(--color-hairline-strong);
+    border-radius: var(--radius-pill);
+    background-color: transparent;
+    color: var(--color-text);
+    cursor: pointer;
+
+    /* 动画 */
+    transition: color var(--duration) var(--ease),
+                border-color var(--duration) var(--ease);
+}
+
+.contact-action:hover {
+    /* 装饰 */
+    border-color: var(--color-signal);
+    color: var(--color-signal);
+}
+
+.contact-footnote {
+    /* 边距 */
+    margin-top: var(--space-24);
+
+    /* 文本 */
+    font-size: var(--text-row);
+    font-weight: 400;
+    line-height: 1.9;
+
+    /* 装饰 */
+    color: var(--color-text-dim);
+}
+
+/* ========== 响应式：联系页 ========== */
+@media screen and (max-width: 768px) {
+    .contact-row {
+        /* 布局 */
+        grid-template-columns: minmax(0, 1fr);
+        align-items: start;
+
+        /* 间距 */
+        gap: var(--space-12);
+
+        /* 边距 */
+        padding: var(--space-20);
+    }
+
+    .contact-action {
+        /* 布局：按钮靠左，避免撑满整行 */
+        justify-self: start;
+    }
+}

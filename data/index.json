@@ -1,0 +1,73 @@
+{
+    "hero": {
+        "title": "夜の星",
+        "paragraphs": [
+            "学习不止，探索不息，分享不停。",
+            "用热爱记录世间美好，以真心续写人间值得。"
+        ]
+    },
+
+    "updates": {
+        "title": "site / updates",
+        "items": [
+            {
+                "date": "2026/11/15",
+                "text": "全新上线小游戏，无需注册即可游玩。"
+            },
+            {
+                "date": "2026/11/14",
+                "text": "全新上线开源工具，开箱即用，方便快捷。"
+            },
+            {
+                "date": "2026/11/12",
+                "text": "新增相册页面，按时间归档，将美好记录下来。"
+            },
+            {
+                "date": "2026/11/9",
+                "text": "全面完善博客的整体功能，包括归档，数据库等。"
+            },
+            {
+                "date": "2026/11/7",
+                "text": "首页重构，导航改为头像与站点入口。"
+            }
+        ]
+    },
+
+    "stack": [
+        "Python",
+        "JavaScript",
+        "HTML",
+        "CSS",
+        "Vue",
+        "FastAPI",
+        "SQLite",
+        "Git",
+        "Linux",
+        "Docker",
+        "Markdown"
+    ],
+
+    "work": {
+        "label": "最新作品",
+        "projects": [
+            {
+                "type": "01 / Service",
+                "title": "邮箱服务",
+                "desc": "基于Cloud mail的邮箱服务, 确保您的通信安全和隐私。",
+                "link": "./projects.html"
+            },
+            {
+                "type": "02 / Tool",
+                "title": "开源工具",
+                "desc": "提供一系列的开源工具, 帮助您更高效地工作。",
+                "link": "./projects.html"
+            },
+            {
+                "type": "03 / Game",
+                "title": "小游戏",
+                "desc": "提供一系列的小游戏, 为您的闲暇时间增添乐趣。",
+                "link": "./projects.html#game"
+            }
+        ]
+    }
+}

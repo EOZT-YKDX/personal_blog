@@ -1,0 +1,191 @@
+/* ========== 内页首屏：标签 / 标题 / 引言 ========== */
+.page-hero {
+    /* 边距：顶部避让固定导航，与首页首屏共用同一份纵向留白；底部留白供正文衔接 */
+    padding: calc(var(--nav-height) + var(--hero-padding-y)) 0 var(--space-40);
+}
+
+.page-hero-label {
+    /* 装饰 */
+    color: var(--color-text-muted);
+}
+
+.page-title {
+    /* 边距 */
+    margin-top: var(--space-24);
+
+    /* 文本：内页主视觉，比首页首屏小一档，仍随视口变化 */
+    font-size: clamp(36px, 5vw, 72px);
+    font-weight: 400;
+    letter-spacing: var(--tracking-title);
+    line-height: var(--leading-title);
+
+    /* 装饰 */
+    color: var(--color-text);
+}
+
+.page-lead {
+    /* 边距 */
+    margin-top: var(--space-32);
+
+    /* 大小：限制行宽，保持易读 */
+    max-width: 720px;
+
+    /* 文本 */
+    font-size: var(--text-lead);
+    font-weight: 400;
+    line-height: var(--leading-lead);
+
+    /* 装饰 */
+    color: var(--color-text-muted);
+}
+
+/* ========== 内页主体容器 ========== */
+.page-body {
+    /* 边距：底部留白交给页脚，避免双层间距 */
+    padding-bottom: 0;
+}
+
+/* ========== 数据加载失败提示 ========== */
+/* 只在数据请求失败时出现，替代正文区块，保持与区块一致的上下留白 */
+.page-error {
+    /* 边距 */
+    padding: var(--space-56) 0;
+
+    /* 文本 */
+    font-size: var(--text-body);
+    font-weight: 400;
+    line-height: 1.9;
+
+    /* 装饰：与区块顶部的发丝分隔线对齐，保持页面结构连续 */
+    border-top: var(--hairline) solid var(--color-hairline);
+    color: var(--color-text-dim);
+}
+
+/* ========== 通用区块：左标签、右内容，仅发丝分隔 ========== */
+.page-block {
+    /* 布局 */
+    display: grid;
+    grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
+    gap: var(--space-40);
+
+    /* 边距 */
+    padding: var(--space-56) 0;
+
+    /* 装饰 */
+    border-top: var(--hairline) solid var(--color-hairline);
+}
+
+/* 无侧栏区块：内容独占一行 */
+.page-block-single {
+    /* 布局 */
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.block-aside {
+    /* 布局 */
+    display: flex;
+    flex-direction: column;
+
+    /* 间距 */
+    gap: var(--space-12);
+}
+
+.block-label {
+    /* 装饰 */
+    color: var(--color-text-dim);
+}
+
+.block-title {
+    /* 文本 */
+    font-size: clamp(20px, 1.8vw, 26px);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+
+    /* 装饰 */
+    color: var(--color-text);
+}
+
+.block-body {
+    /* 布局 */
+    display: flex;
+    flex-direction: column;
+
+    /* 间距 */
+    gap: var(--space-20);
+
+    /* 大小：允许内部内容收缩，避免溢出 */
+    min-width: 0;
+}
+
+.block-text {
+    /* 大小：占满内容列，让一行内能放更多文字 */
+    max-width: 100%;
+
+    /* 文本 */
+    font-size: var(--text-body);
+    font-weight: 400;
+    line-height: 1.9;
+
+    /* 装饰 */
+    color: var(--color-text-muted);
+}
+
+/* ========== 技术栈标签：关于页的分组与作品页的卡片共用 ========== */
+.stack-group-items,
+.project-stack {
+    /* 布局 */
+    display: flex;
+    flex-wrap: wrap;
+
+    /* 间距 */
+    gap: var(--space-8);
+}
+
+.stack-chip {
+    /* 边距 */
+    padding: var(--space-6) var(--space-12);
+
+    /* 文本 */
+    font-size: var(--text-row);
+    font-weight: 400;
+    white-space: nowrap;
+
+    /* 装饰 */
+    border: var(--hairline) solid var(--color-hairline);
+    border-radius: var(--radius-pill);
+    color: var(--color-text-soft);
+}
+
+/* ========== 响应式：区块骨架 ========== */
+@media screen and (max-width: 1024px) {
+    .page-block {
+        /* 布局：窄屏改为上下堆叠 */
+        grid-template-columns: minmax(0, 1fr);
+
+        /* 间距 */
+        gap: var(--space-20);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .page-hero {
+        /* 边距：小屏收紧纵向留白 */
+        padding: calc(var(--nav-height) + var(--space-56)) 0 0;
+    }
+
+    .page-lead {
+        /* 文本 */
+        font-size: var(--text-body);
+    }
+
+    .page-block {
+        /* 边距 */
+        padding: var(--space-40) 0;
+    }
+
+    .page-error {
+        /* 边距：与区块同步收紧 */
+        padding: var(--space-40) 0;
+    }
+}

@@ -1,0 +1,74 @@
+/* ========== 作品页：卡片补充信息 ========== */
+.page-block-single .work-grid {
+    /* 边距：区块本身已提供留白 */
+    margin-top: 0;
+}
+
+.project-card {
+    /* 定位：锚点跳转时避让固定导航 */
+    scroll-margin-top: calc(var(--nav-height) + var(--space-24));
+
+    /* 边距：压缩底部留白，多出的空间交给 auto 外边距，详情入口随之下移，卡片尺寸不变 */
+    padding-bottom: var(--space-16);
+}
+
+/* 详情入口：在技术栈下方多留一段距离，整体向卡片底部靠拢 */
+.project-more {
+    /* 边距 */
+    margin-top: var(--space-16);
+}
+
+.project-meta {
+    /* 布局 */
+    display: flex;
+    align-items: center;
+
+    /* 间距 */
+    gap: var(--space-12);
+
+    /* 边距 */
+    margin-top: var(--space-12);
+
+    /* 文本 */
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    font-weight: 400;
+    letter-spacing: var(--tracking-caption);
+    text-transform: uppercase;
+
+    /* 装饰 */
+    color: var(--color-text-dim);
+}
+
+.project-status {
+    /* 装饰 */
+    color: var(--color-text-muted);
+}
+
+.project-stack {
+    /* 边距 */
+    margin-top: var(--space-16);
+}
+
+/* 未上线的作品：入口不可点击，仅作占位 */
+.project-more-idle {
+    /* 装饰 */
+    color: var(--color-text-dim);
+    cursor: default;
+}
+
+/* 占位入口不参与悬停反馈，避免看起来可点击 */
+.project-card:hover .project-more-idle,
+.project-more-idle:hover {
+    /* 装饰 */
+    border-color: transparent;
+    color: var(--color-text-dim);
+}
+
+.project-more-idle:hover .project-more-arrow {
+    /* 装饰 */
+    color: var(--color-text-dim);
+
+    /* 动画 */
+    transform: none;
+}

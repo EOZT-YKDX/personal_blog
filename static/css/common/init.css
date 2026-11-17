@@ -1,0 +1,178 @@
+/* ========== 设计 Token ========== */
+:root {
+    /* 颜色 */
+    --color-canvas: #0a0a0b;
+    --color-surface: #121214;
+    --color-surface-lift: #17171a;
+    --color-hairline: rgba(255, 255, 255, 0.09);
+    --color-hairline-strong: rgba(255, 255, 255, 0.18);
+    --color-text: #f1f1f2;
+    --color-text-soft: #cfcfd3;
+    --color-text-muted: #a3a3a8;
+    --color-text-dim: #6b6b71;
+    --color-signal: #edff66;
+    --color-signal-deep: #dfef52;
+    --color-status: #ff8a3d;
+    --color-scrim: rgba(0, 0, 0, 0.55);
+    --color-scrim-light: rgba(0, 0, 0, 0.35);
+
+    /* 字体 */
+    --font-sans: "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, Menlo, monospace;
+
+    /* 字号与行高 */
+    --text-caption: 11px;
+    --tracking-caption: 0.12em;
+    --text-window: 12px;
+    --text-row: 13px;
+    --text-body: 15px;
+    --text-lead: 17px;
+    --leading-lead: 1.9;
+    --text-hero: clamp(56px, 7vw, 108px);
+    --tracking-title: -0.03em;
+    --leading-title: 1.05;
+
+    /* 间距 */
+    --space-4: 4px;
+    --space-6: 6px;
+    --space-8: 8px;
+    --space-12: 12px;
+    --space-16: 16px;
+    --space-20: 20px;
+    --space-24: 24px;
+    --space-32: 32px;
+    --space-40: 40px;
+    --space-56: 56px;
+    --space-72: 72px;
+
+    /* 布局 */
+    --page-max-width: 1350px;
+    --page-padding: clamp(20px, 5vw, 72px);
+    --nav-height: 68px;
+    --nav-padding: clamp(16px, 3.5vw, 48px);
+    --nav-links-min-width: 280px;
+    --nav-title-max-width: 180px;
+    --drawer-width: 42%;
+    --drawer-min-width: 232px;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-pill: 999px;
+    --hairline: 1px;
+
+    /* 探索按钮：固定尺寸，避免窗口变小时被压缩 */
+    --explore-height: 40px;
+    --explore-min-width: 120px;
+    --explore-icon: 18px;
+
+    /* 动效 */
+    --duration: 0.24s;
+    --duration-slow: 0.5s;
+    --duration-drawer: 0.3s;
+    --duration-hint: 2s;
+    --duration-spin: 0.9s;
+    --duration-pulse: 1.6s;
+    --duration-instant: 0.01s;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-pulse: ease-in-out;
+
+    /* 透明度层级 */
+    --opacity-hidden: 0;
+    --opacity-soft: 0.35;
+    --opacity-visible: 0.9;
+    --opacity-full: 1;
+
+    /* 字距 */
+    --tracking-loader: 0.16em;
+
+    /* 主内容上下留白：收紧纵向边距，避免上下空隙过大显得空旷 */
+    --hero-padding-y: clamp(64px, 10vh, 120px);
+
+    /* 首屏两栏间距：文本靠左、卡片靠右，中间留出呼吸区 */
+    --hero-gap: clamp(56px, 6vw, 112px);
+
+    /* 首屏文案列宽：限制段落行宽，折行位置与设计稿一致 */
+    --hero-copy-width: clamp(300px, 24vw, 340px);
+}
+
+/* ========== 重置与基础 ========== */
+* {
+    /* 重置默认样式 */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    /* 画布固定为深色 */
+    color-scheme: dark;
+}
+
+body {
+    /* 装饰：纯深色画布，不使用模糊与光晕 */
+    background-color: var(--color-canvas);
+    color: var(--color-text);
+
+    /* 文本 */
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    font-weight: 400;
+    line-height: 1.6;
+
+    /* 渲染 */
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+/* ========== 自定义滚动条 ========== */
+::-webkit-scrollbar {
+    width: var(--hairline);
+    height: var(--hairline);
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-canvas);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-hairline-strong);
+}
+
+::-webkit-scrollbar-button {
+    display: none;
+}
+
+/* ========== 内容容器 ========== */
+.shell {
+    /* 布局 */
+    width: 100%;
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+    padding: 0 var(--page-padding);
+}
+
+/* ========== 仪器标签（Mono 小号大写） ========== */
+.label {
+    /* 布局 */
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-8);
+
+    /* 文本 */
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    font-weight: 400;
+    letter-spacing: var(--tracking-caption);
+    text-transform: uppercase;
+    white-space: nowrap;
+
+    /* 装饰 */
+    color: var(--color-text);
+}
+
+/* ========== 移动端适配 ========== */
+@media screen and (max-width: 768px) {
+    /* 去除移动端点击蓝色背景 */
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
+}

@@ -1,0 +1,419 @@
+/* ========== 作品网格：首页与作品页共用 ========== */
+.work-grid {
+    /* 布局：三个作品等宽并排 */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: stretch;
+
+    /* 间距 */
+    gap: var(--space-32);
+
+    /* 边距 */
+    margin-top: var(--space-32);
+}
+
+/* 作品条目：默认无框，仅文字；悬停时才显现卡片面板 */
+.project-card {
+    /* 布局 */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    /* 边距 */
+    padding: var(--space-32);
+
+    /* 装饰：边框常驻但透明，悬停时只换颜色，避免出现 1px 抖动 */
+    border: var(--hairline) solid transparent;
+    border-radius: var(--radius-md);
+    background-color: transparent;
+
+    /* 动画 */
+    transition: border-color var(--duration) var(--ease),
+                background-color var(--duration) var(--ease),
+                transform var(--duration) var(--ease);
+}
+
+/* 鼠标进入：呈现主卡片样式 */
+.project-card:hover {
+    /* 装饰 */
+    border-color: var(--color-hairline-strong);
+    background-color: var(--color-surface-lift);
+
+    /* 动画 */
+    transform: translateY(calc(-1 * var(--hairline) * 2));
+}
+
+.project-type {
+    /* 文本 */
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    font-weight: 400;
+    letter-spacing: var(--tracking-caption);
+    text-transform: uppercase;
+
+    /* 装饰 */
+    color: var(--color-text-dim);
+}
+
+.project-name {
+    /* 边距 */
+    margin-top: var(--space-24);
+
+    /* 文本 */
+    font-size: clamp(22px, 2vw, 30px);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+
+    /* 装饰 */
+    color: var(--color-text);
+}
+
+.project-desc {
+    /* 边距：下方预留与详情入口的最小间距 */
+    margin-top: var(--space-16);
+    margin-bottom: var(--space-24);
+
+    /* 文本 */
+    font-size: var(--text-row);
+    font-weight: 400;
+    line-height: 1.9;
+
+    /* 装饰 */
+    color: var(--color-text-muted);
+}
+
+.project-more {
+    /* 布局 */
+    display: inline-flex;
+    align-items: center;
+
+    /* 间距 */
+    gap: var(--space-8);
+
+    /* 边距：预留按钮内边距，并用负外边距抵消，文字仍与上方对齐 */
+    margin-top: auto;
+    margin-left: calc(-1 * var(--space-20));
+    padding: var(--space-12) var(--space-20);
+
+    /* 装饰：边框常驻但透明，悬停时只换颜色，避免出现尺寸跳动 */
+    border: var(--hairline) solid transparent;
+    border-radius: var(--radius-pill);
+
+    /* 文本 */
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    font-weight: 400;
+    letter-spacing: var(--tracking-caption);
+    text-transform: uppercase;
+
+    /* 装饰 */
+    color: var(--color-text);
+    text-decoration: none;
+
+    /* 动画 */
+    transition: color var(--duration) var(--ease),
+                border-color var(--duration) var(--ease);
+}
+
+/* 悬停卡片时，详情入口随之变成主卡片里的描边按钮 */
+.project-card:hover .project-more {
+    /* 装饰 */
+    border-color: var(--color-hairline-strong);
+}
+
+.project-card:hover .project-more:hover {
+    /* 装饰 */
+    border-color: var(--color-signal);
+}
+
+.project-more:hover {
+    /* 装饰 */
+    color: var(--color-signal);
+}
+
+.project-more-arrow {
+    /* 装饰 */
+    color: var(--color-text-dim);
+
+    /* 动画 */
+    transition: transform var(--duration) var(--ease),
+                color var(--duration) var(--ease);
+}
+
+.project-more:hover .project-more-arrow {
+    /* 装饰 */
+    color: var(--color-signal);
+
+    /* 动画 */
+    transform: translateX(var(--space-4));
+}
+
+/* ========== 页脚 ========== */
+.site-footer {
+    /* 边距：收紧上下留白，整体高度更紧凑 */
+    margin-top: var(--space-56);
+    padding: var(--space-32) 0 var(--space-20);
+
+    /* 装饰 */
+    border-top: var(--hairline) solid var(--color-hairline);
+}
+
+.footer-inner {
+    /* 布局 */
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    /* 间距 */
+    gap: var(--space-24);
+}
+
+.footer-brand {
+    /* 布局 */
+    display: flex;
+    flex-direction: column;
+
+    /* 间距 */
+    gap: var(--space-8);
+
+    /* 大小：限制简介行宽，保持易读 */
+    max-width: 560px;
+}
+
+.footer-mark {
+    /* 文本 */
+    font-size: var(--text-body);
+    font-weight: 400;
+
+    /* 装饰 */
+    color: var(--color-text);
+}
+
+.footer-note {
+    /* 文本 */
+    font-size: var(--text-row);
+    font-weight: 400;
+    line-height: 1.9;
+
+    /* 装饰 */
+    color: var(--color-text-muted);
+}
+
+.footer-links {
+    /* 布局 */
+    display: flex;
+    flex-direction: column;
+
+    /* 间距 */
+    gap: var(--space-12);
+}
+
+.footer-links-label,
+.footer-social-label {
+    /* 装饰 */
+    color: var(--color-text-dim);
+}
+
+.footer-links-grid {
+    /* 布局：最多两行，超出两行的链接向右侧延伸 */
+    display: grid;
+    grid-template-rows: repeat(2, auto);
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+
+    /* 间距 */
+    gap: var(--space-12) var(--space-40);
+}
+
+.footer-link {
+    /* 文本 */
+    font-size: var(--text-row);
+    font-weight: 400;
+    white-space: nowrap;
+
+    /* 装饰 */
+    color: var(--color-text-muted);
+    text-decoration: none;
+
+    /* 动画 */
+    transition: color var(--duration) var(--ease);
+}
+
+.footer-link:hover {
+    /* 装饰 */
+    color: var(--color-text);
+}
+
+/* 页脚里的当前页：直接常驻「了解详情」的文本色 */
+.footer-link[aria-current="page"] {
+    /* 装饰 */
+    color: var(--color-text);
+}
+
+.footer-social {
+    /* 布局：右侧栏，标签与时间在上、图标在下；整体贴右，保持原有右边距 */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    /* 间距 */
+    gap: var(--space-12);
+}
+
+.footer-social-head {
+    /* 布局：单列网格，列宽取标签与时间中较宽者，两行自动共用同一列宽 */
+    display: grid;
+    grid-template-columns: max-content;
+
+    /* 间距 */
+    gap: var(--space-6);
+}
+
+.footer-social-label,
+.footer-time {
+    /* 大小：撑满列宽，让时间与 LOCAL TIME 的总体宽度保持一致 */
+    width: 100%;
+}
+
+.footer-time {
+    /* 文本 */
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    font-weight: 400;
+    letter-spacing: var(--tracking-caption);
+    text-align: right;
+
+    /* 装饰 */
+    color: var(--color-text-muted);
+}
+
+.footer-social-icons {
+    /* 布局 */
+    display: flex;
+    align-items: center;
+
+    /* 间距 */
+    gap: var(--space-16);
+}
+
+.footer-social a {
+    /* 布局 */
+    display: inline-flex;
+
+    /* 大小 */
+    width: 18px;
+    height: 18px;
+
+    /* 装饰 */
+    opacity: var(--opacity-visible);
+
+    /* 动画 */
+    transition: opacity var(--duration) var(--ease);
+}
+
+.footer-social a:hover {
+    /* 装饰 */
+    opacity: var(--opacity-full);
+}
+
+.footer-social img {
+    /* 布局 */
+    display: block;
+
+    /* 大小 */
+    width: 100%;
+    height: 100%;
+}
+
+.footer-meta {
+    /* 布局 */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    /* 间距 */
+    margin-top: var(--space-20);
+    gap: var(--space-8) var(--space-32);
+}
+
+.footer-copy {
+    /* 布局 */
+    flex: none;
+
+    /* 文本 */
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    font-weight: 400;
+    letter-spacing: var(--tracking-caption);
+
+    /* 装饰 */
+    color: var(--color-text-dim);
+}
+
+.footer-version {
+    /* 文本 */
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    font-weight: 400;
+    letter-spacing: var(--tracking-caption);
+
+    /* 装饰 */
+    color: var(--color-text-dim);
+}
+
+/* ========== 响应式 ========== */
+@media screen and (max-width: 1024px) {
+    /* 中等屏：作品改为两列，第三个自然落到下一行 */
+    .work-grid {
+        /* 布局 */
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    /* 小屏：作品卡片单列排布，避免文字被压扁 */
+    .work-grid {
+        /* 布局 */
+        grid-template-columns: 1fr;
+
+        /* 间距 */
+        gap: var(--space-16);
+    }
+
+    .footer-inner {
+        /* 布局 */
+        flex-direction: column;
+        align-items: flex-start;
+
+        /* 间距 */
+        gap: var(--space-20);
+    }
+
+    /* 小屏：本地时间与图标随页脚整体左对齐，不再贴右边缘 */
+    .footer-social {
+        /* 布局 */
+        align-items: flex-start;
+    }
+
+    .footer-time {
+        /* 文本：与 LOCAL TIME 标签同一起点左对齐 */
+        text-align: left;
+    }
+
+    .footer-meta {
+        /* 布局 */
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* 尊重系统减弱动效偏好 */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        /* 动画 */
+        transition-duration: var(--duration-instant);
+    }
+}

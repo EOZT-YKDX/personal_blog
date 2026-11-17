@@ -1,0 +1,6 @@
+# 夜の星 · YKDX Blog
+User-agent: *
+Allow: /
+
+# 数据接口无需单独索引，页面内容已由前端渲染
+Disallow: /data/

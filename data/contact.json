@@ -1,0 +1,41 @@
+{
+    "contact": {
+        "label": "contact / 联系",
+        "title": "随时可以联系我",
+        "lead": "如果你也对编程感兴趣，欢迎随时联系我。",
+        "items": [
+            {
+                "id": "qq",
+                "label": "QQ",
+                "icon": "./static/img/icons/qq.svg",
+                "value": "1204894029",
+                "note": "不常在线，但能看到消息。",
+                "copy": true
+            },
+            {
+                "id": "wechat",
+                "label": "微信",
+                "icon": "./static/img/icons/wechat.svg",
+                "value": "YKDX-15830263779",
+                "note": "添加时请简单说明来意。",
+                "copy": true
+            },
+            {
+                "id": "mail",
+                "label": "邮箱",
+                "icon": "./static/img/icons/mail.svg",
+                "value": "A7585483@163.com",
+                "note": "最推荐的联系方式，通常两天内回复。",
+                "copy": true
+            },
+            {
+                "id": "github",
+                "label": "GitHub",
+                "icon": "./static/img/icons/github.svg",
+                "value": "github.com/EOZT-YKDX",
+                "note": "代码与笔记都放在这里。",
+                "copy": true
+            }
+        ]
+    }
+}

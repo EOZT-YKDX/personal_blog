@@ -1,0 +1,243 @@
+/* ========== 赞助页：二维码与说明 ========== */
+.sponsor-grid {
+    /* 布局 */
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    /* 间距 */
+    gap: var(--space-32);
+}
+
+.sponsor-card {
+    /* 布局 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    /* 间距 */
+    gap: var(--space-20);
+
+    /* 边距 */
+    padding: var(--space-32);
+
+    /* 装饰 */
+    border: var(--hairline) solid var(--color-hairline);
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface);
+}
+
+.sponsor-image {
+    /* 布局 */
+    display: block;
+
+    /* 大小 */
+    width: 100%;
+    max-width: 260px;
+    aspect-ratio: 1 / 1;
+
+    /* 填充方式 */
+    object-fit: contain;
+
+    /* 装饰 */
+    border-radius: var(--radius-sm);
+    background-color: var(--color-surface-lift);
+}
+
+.sponsor-label {
+    /* 装饰 */
+    color: var(--color-text-muted);
+}
+
+.sponsor-notes {
+    /* 布局 */
+    display: flex;
+    flex-direction: column;
+
+    /* 间距 */
+    gap: var(--space-12);
+
+    /* 装饰 */
+    list-style: none;
+}
+
+.sponsor-note {
+    /* 文本 */
+    font-size: var(--text-row);
+    font-weight: 400;
+    line-height: 1.9;
+
+    /* 装饰 */
+    color: var(--color-text-muted);
+}
+
+/* 赞助名单：与上方说明同属发丝分隔行 */
+.sponsor-wall {
+    /* 布局 */
+    display: flex;
+    flex-direction: column;
+
+    /* 间距 */
+    gap: var(--space-16);
+
+    /* 边距 */
+    padding-top: var(--space-32);
+
+    /* 装饰 */
+    border-top: var(--hairline) solid var(--color-hairline);
+}
+
+.sponsor-wall-label {
+    /* 装饰 */
+    color: var(--color-text-dim);
+}
+
+.sponsor-wall-empty {
+    /* 文本 */
+    font-size: var(--text-row);
+    font-weight: 400;
+    line-height: 1.9;
+
+    /* 装饰 */
+    color: var(--color-text-dim);
+}
+
+/* 赞助名单表格：表头与数据行共用同一套列宽，保证三列上下对齐 */
+.sponsor-wall-table {
+    /* 布局 */
+    display: flex;
+    flex-direction: column;
+
+    /* 装饰：整张表格共用一圈外框，表头与名单接壤在同一个盒子里 */
+    overflow: hidden;
+    border: var(--hairline) solid var(--color-hairline-strong);
+    border-radius: var(--radius-sm);
+}
+
+/* 表头：与数据行同列宽、同内边距，仅用一条分隔线与下方名单接壤 */
+.sponsor-wall-head {
+    /* 布局：列宽必须与下方 .sponsor-wall-row 完全一致 */
+    display: grid;
+    grid-template-columns: minmax(0, 160px) minmax(0, 120px) minmax(0, 1fr);
+    align-items: baseline;
+
+    /* 间距 */
+    gap: var(--space-16);
+
+    /* 边距：横向内边距对齐数据行，纵向收窄，表头不与数据抢注意力 */
+    padding: var(--space-12) var(--space-20);
+
+    /* 装饰：不加独立外框，只保留底边与名单相接 */
+    border-bottom: var(--hairline) solid var(--color-hairline-strong);
+}
+
+.sponsor-wall-head-name,
+.sponsor-wall-head-date,
+.sponsor-wall-head-message {
+    /* 装饰：表头用最弱一档文字色，作为列的说明而非内容 */
+    color: var(--color-text-dim);
+}
+
+.sponsor-wall-head-message {
+    /* 布局：与留言列一致贴右 */
+    justify-self: end;
+}
+
+.sponsor-wall-list {
+    /* 布局 */
+    display: flex;
+    flex-direction: column;
+
+    /* 间距 */
+    gap: var(--hairline);
+
+    /* 装饰 */
+    list-style: none;
+    background-color: var(--color-hairline);
+}
+
+.sponsor-wall-row {
+    /* 布局：名字 / 日期 / 留言三列，日期列定宽保证上下对齐 */
+    display: grid;
+    grid-template-columns: minmax(0, 160px) minmax(0, 120px) minmax(0, 1fr);
+    align-items: baseline;
+
+    /* 间距 */
+    gap: var(--space-16);
+
+    /* 边距 */
+    padding: var(--space-16) var(--space-20);
+
+    /* 装饰 */
+    background-color: var(--color-surface);
+}
+
+.sponsor-wall-name {
+    /* 文本 */
+    font-size: var(--text-body);
+    font-weight: 400;
+
+    /* 装饰 */
+    color: var(--color-text);
+}
+
+.sponsor-wall-date {
+    /* 文本 */
+    font-family: var(--font-mono);
+    font-size: var(--text-row);
+    font-weight: 400;
+    letter-spacing: var(--tracking-caption);
+
+    /* 装饰 */
+    color: var(--color-text-dim);
+}
+
+.sponsor-wall-message {
+    /* 布局：留言贴右，与日期列拉开距离 */
+    justify-self: end;
+
+    /* 文本 */
+    font-size: var(--text-row);
+    font-weight: 400;
+    line-height: 1.9;
+    text-align: right;
+
+    /* 装饰 */
+    color: var(--color-text-muted);
+}
+
+/* ========== 响应式：赞助页 ========== */
+@media screen and (max-width: 768px) {
+    .sponsor-grid {
+        /* 布局 */
+        grid-template-columns: 1fr;
+
+        /* 间距 */
+        gap: var(--space-16);
+    }
+
+    .sponsor-card {
+        /* 边距 */
+        padding: var(--space-24);
+    }
+
+    .sponsor-wall-row {
+        /* 布局：窄屏改为上下堆叠，留言回归左对齐 */
+        grid-template-columns: minmax(0, 1fr);
+
+        /* 间距 */
+        gap: var(--space-8);
+    }
+
+    .sponsor-wall-head {
+        /* 布局：数据行已改为单列堆叠，表头列宽不再对应，直接隐藏避免错位 */
+        display: none;
+    }
+
+    .sponsor-wall-message {
+        /* 布局 */
+        justify-self: start;
+
+        /* 文本 */
+        text-align: left;
+    }
+}
